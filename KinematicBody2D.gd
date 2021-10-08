@@ -4,11 +4,11 @@ const UP = Vector2(0, -1)
 var motion = Vector2()
 
 var JUMPHEIGHT = -600
-var MOVESPEED = 300
+var MOVESPEED = 400
 var GRAVITY = 20
 var MAXFALLSPEED = 650
 var FASTFALLSPEED = 100
-var MAXAIRJUMPS = 2
+var MAXAIRJUMPS = 2000000000
 var AIRJUMPS = MAXAIRJUMPS
 
 func _physics_process(delta):
@@ -37,6 +37,5 @@ func _physics_process(delta):
 		motion.y += GRAVITY
 	if motion.y > MAXFALLSPEED:
 		motion.y = MAXFALLSPEED
-	move_and_slide(motion, UP)
-	pass
+	motion =  move_and_slide(motion, UP)
 
