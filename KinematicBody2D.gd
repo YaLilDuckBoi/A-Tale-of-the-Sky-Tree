@@ -11,7 +11,7 @@ var FASTFALLSPEED = 100
 var MAXAIRJUMPS = 2
 var AIRJUMPS = MAXAIRJUMPS
 ##var ISFLOORJUMPOK := true
-
+onready var in_water := false
 
 func _physics_process(delta):
 	
@@ -47,6 +47,11 @@ func _physics_process(delta):
 		motion.y += GRAVITY
 	if motion.y > MAXFALLSPEED:
 		motion.y = MAXFALLSPEED
+
+	if in_water == true:
+		AIRJUMPS = MAXAIRJUMPS
+		motion = motion * 0.75
+	#print(in_water)
 	motion =  move_and_slide(motion, UP)
 
 
@@ -54,3 +59,16 @@ func _physics_process(delta):
 ##func _on_Coytime_timeout():
 	##print("Coytime time out")
 	##ISFLOORJUMPOK = false
+
+
+func _on_Area2D_body_entered(body):
+	print("Entered!")
+	in_water = true
+	
+	pass # Replace with function body.
+
+func _on_Area2D_body_exited(body):
+	print("Exited!")
+	in_water = false
+	
+	pass # Replace with function body.
