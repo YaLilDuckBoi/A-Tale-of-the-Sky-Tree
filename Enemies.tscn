@@ -1,26 +1,34 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://BatBoiMid.png" type="Texture" id=1]
+[ext_resource path="res://Batenemy.gd" type="Script" id=2]
+[ext_resource path="res://BatBoiHigh.png" type="Texture" id=3]
+[ext_resource path="res://BatBoiLow.png" type="Texture" id=4]
+[ext_resource path="res://BatBoiAttack.png" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 8.0
+radius = 6.65181
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ ExtResource( 1 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 16.0
+radius = 8.0
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 48.0
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Batenemy" type="KinematicBody2D" parent="."]
 collision_layer = 32
 collision_mask = 294916
+script = ExtResource( 2 )
 
 [node name="BatCollisionBody" type="CollisionShape2D" parent="Batenemy"]
 shape = SubResource( 2 )
@@ -29,8 +37,23 @@ shape = SubResource( 2 )
 scale = Vector2( 0.75, 0.75 )
 frames = SubResource( 1 )
 
-[node name="Area2D" type="Area2D" parent="Batenemy"]
+[node name="Behaviourtimer" type="Timer" parent="Batenemy"]
+process_mode = 0
+wait_time = 0.5
+one_shot = true
+
+[node name="DMG" type="Area2D" parent="Batenemy"]
 collision_layer = 0
 
-[node name="DamageArea" type="CollisionShape2D" parent="Batenemy/Area2D"]
+[node name="DamageArea" type="CollisionShape2D" parent="Batenemy/DMG"]
 shape = SubResource( 3 )
+
+[node name="AttackArea" type="Area2D" parent="Batenemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Batenemy/AttackArea"]
+shape = SubResource( 4 )
+
+[connection signal="timeout" from="Batenemy/Behaviourtimer" to="Batenemy" method="_on_Behaviourtimer_timeout"]
+[connection signal="body_entered" from="Batenemy/DMG" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="Batenemy/DMG" to="Batenemy" method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="Batenemy/AttackArea" to="Batenemy" method="_on_AttackArea_body_entered"]
