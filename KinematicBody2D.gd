@@ -62,13 +62,25 @@ func _physics_process(delta):
 
 
 func _on_Area2D_body_entered(body):
-	print("Entered!")
+	if body.get_collision_layer_bit(0):
+		print("Yeah for 0")
+	if body.get_collision_layer_bit(1):
+		print("Yeah for 1")
+	print("Entered! while ", in_water, "Body:", body)
 	in_water = true
 	
 	pass # Replace with function body.
 
 func _on_Area2D_body_exited(body):
-	print("Exited!")
+#	if body.is_in_group(PlayerGroup)
+#		pass
+		
+	if body.get_collision_layer_bit(0):
+		print("yeah for 0")
+	if body.get_collision_layer_bit(1):
+		print("yeah for 1")
+		
+	print("Exited! while ", in_water, "Body:", body)
 	in_water = false
 	
 	pass # Replace with function body.
