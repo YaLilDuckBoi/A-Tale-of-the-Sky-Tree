@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://BatBoiMid.png" type="Texture" id=1]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 8.0
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 16.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Batenemy" type="KinematicBody2D" parent="."]
+collision_layer = 32
+collision_mask = 294916
+
+[node name="BatCollisionBody" type="CollisionShape2D" parent="Batenemy"]
+shape = SubResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Batenemy"]
+scale = Vector2( 0.75, 0.75 )
+frames = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="Batenemy"]
+collision_layer = 0
+
+[node name="DamageArea" type="CollisionShape2D" parent="Batenemy/Area2D"]
+shape = SubResource( 3 )
