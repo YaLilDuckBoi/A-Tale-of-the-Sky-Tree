@@ -50,7 +50,7 @@ shape = SubResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Batenemy"]
 scale = Vector2( 0.75, 0.75 )
 frames = SubResource( 2 )
-animation = "ATTACK"
+animation = ""
 
 [node name="Behaviourtimer" type="Timer" parent="Batenemy"]
 process_mode = 0

@@ -2,10 +2,10 @@ extends KinematicBody2D
 
 var motion = Vector2(0,0)
 
-const DASHSPEED = 400.0
+const DASHSPEED = 300.0
 const FOLLOWSPEED = 200.0
 const PREPTIME = 1.0
-const DASHTIME = 0.7
+const DASHTIME = 1.0
 const RECOVERYTIME = 1.0
 
 var DashDirection := Vector2(0.0, 0.0)
@@ -20,6 +20,13 @@ var BatDoing = behaviour.IDLE
 
 # Called when the node enters the scene tree for the first time.
 func _physics_process(delta):
+	
+	if not BatDoing == behaviour.DASHATTACKING:
+			if self.global_position.x >= globals.playerpos.x:
+				get_node("AnimatedSprite").flip_h = false
+			else:
+				get_node("AnimatedSprite").flip_h = true
+	
 	if BatDoing == behaviour.IDLE:
 		motion.x = 0
 		motion.y = 0
