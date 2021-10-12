@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://BatBoiMid.png" type="Texture" id=1]
 [ext_resource path="res://Batenemy.gd" type="Script" id=2]
@@ -6,36 +6,51 @@
 [ext_resource path="res://BatBoiLow.png" type="Texture" id=4]
 [ext_resource path="res://BatBoiAttack.png" type="Texture" id=5]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=1]
 radius = 6.65181
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ) ],
+"frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "default",
-"speed": 5.0
+"name": "IDLE",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "ATTACK",
+"speed": 10.0
 } ]
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 8.0
 
 [sub_resource type="CircleShape2D" id=4]
-radius = 48.0
+radius = 64.0
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="CircleShape2D" id=5]
+radius = 320.1
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 128.0
+
+[node name="Enemies" type="Node2D"]
 
 [node name="Batenemy" type="KinematicBody2D" parent="."]
 collision_layer = 32
 collision_mask = 294916
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="BatCollisionBody" type="CollisionShape2D" parent="Batenemy"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Batenemy"]
 scale = Vector2( 0.75, 0.75 )
-frames = SubResource( 1 )
+frames = SubResource( 2 )
+animation = "ATTACK"
 
 [node name="Behaviourtimer" type="Timer" parent="Batenemy"]
 process_mode = 0
@@ -48,12 +63,25 @@ collision_layer = 0
 [node name="DamageArea" type="CollisionShape2D" parent="Batenemy/DMG"]
 shape = SubResource( 3 )
 
-[node name="AttackArea" type="Area2D" parent="Batenemy"]
+[node name="Attack" type="Area2D" parent="Batenemy"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Batenemy/AttackArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Batenemy/Attack"]
 shape = SubResource( 4 )
 
+[node name="Follow" type="Area2D" parent="Batenemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Batenemy/Follow"]
+shape = SubResource( 5 )
+
+[node name="StopPrep" type="Area2D" parent="Batenemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Batenemy/StopPrep"]
+shape = SubResource( 6 )
+
 [connection signal="timeout" from="Batenemy/Behaviourtimer" to="Batenemy" method="_on_Behaviourtimer_timeout"]
-[connection signal="body_entered" from="Batenemy/DMG" to="." method="_on_Area2D_body_entered"]
-[connection signal="body_entered" from="Batenemy/DMG" to="Batenemy" method="_on_Area2D_body_entered"]
-[connection signal="body_entered" from="Batenemy/AttackArea" to="Batenemy" method="_on_AttackArea_body_entered"]
+[connection signal="body_entered" from="Batenemy/DMG" to="Batenemy" method="_on_DMG_body_entered"]
+[connection signal="body_entered" from="Batenemy/Attack" to="Batenemy" method="_on_AttackArea_body_entered"]
+[connection signal="body_exited" from="Batenemy/Attack" to="Batenemy" method="_on_Attack_body_exited"]
+[connection signal="body_entered" from="Batenemy/Follow" to="Batenemy" method="_on_Follow_body_entered"]
+[connection signal="body_exited" from="Batenemy/Follow" to="Batenemy" method="_on_Follow_body_exited"]
+[connection signal="body_exited" from="Batenemy/StopPrep" to="Batenemy" method="_on_StopPrep_body_exited"]

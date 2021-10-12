@@ -53,7 +53,7 @@ func _physics_process(delta):
 		motion = motion * 0.75
 	#print(in_water)
 	motion =  move_and_slide(motion, UP)
-
+	globals.playerpos = self.global_position
 
 
 ##func _on_Coytime_timeout():
