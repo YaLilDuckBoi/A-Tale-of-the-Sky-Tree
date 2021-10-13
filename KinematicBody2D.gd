@@ -68,8 +68,6 @@ func _on_Area2D_body_entered(body):
 		print("Yeah for 1")
 	print("Entered! while ", in_water, "Body:", body)
 	in_water = true
-	
-	pass # Replace with function body.
 
 func _on_Area2D_body_exited(body):
 #	if body.is_in_group(PlayerGroup)
@@ -83,4 +81,22 @@ func _on_Area2D_body_exited(body):
 	print("Exited! while ", in_water, "Body:", body)
 	in_water = false
 	
-	pass # Replace with function body.
+	
+
+
+func _on_BlueCrystalPickup_body_entered(body):
+	
+	globals.CurrentBigCrystal = globals.BIGCRYSTAL.BLUE
+
+func _on_GreenCrystalPickup_body_entered(body):
+	
+	globals.CurrentBigCrystal = globals.BIGCRYSTAL.GREEN
+
+func _on_RedCrystalPickup_body_entered(body):
+	
+	globals.CurrentBigCrystal = globals.BIGCRYSTAL.RED
+
+
+func _on_YellowCrystalPickup_body_entered(body):
+	
+	globals.CurrentBigCrystal = globals.BIGCRYSTAL.YELLOW

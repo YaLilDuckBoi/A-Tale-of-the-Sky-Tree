@@ -16,17 +16,17 @@ func _process(delta):
 	if Input.is_key_pressed(KEY_E):
 		globals.CurrentBigCrystal = globals.BIGCRYSTAL.EMPTY
 	
-	elif Input.is_key_pressed(KEY_Y):
-		globals.CurrentBigCrystal = globals.BIGCRYSTAL.YELLOW
+	#elif Input.is_key_pressed(KEY_Y):
+		#globals.CurrentBigCrystal = globals.BIGCRYSTAL.YELLOW
 	
-	elif Input.is_key_pressed(KEY_R):
-		globals.CurrentBigCrystal = globals.BIGCRYSTAL.RED
+	#elif Input.is_key_pressed(KEY_R):
+		#globals.CurrentBigCrystal = globals.BIGCRYSTAL.RED
 	
-	elif Input.is_key_pressed(KEY_B):
-		globals.CurrentBigCrystal = globals.BIGCRYSTAL.BLUE
+	#elif Input.is_key_pressed(KEY_B):
+		#globals.CurrentBigCrystal = globals.BIGCRYSTAL.BLUE
 	
-	elif Input.is_key_pressed(KEY_G):
-		globals.CurrentBigCrystal = globals.BIGCRYSTAL.GREEN
+	#elif Input.is_key_pressed(KEY_G):
+		#globals.CurrentBigCrystal = globals.BIGCRYSTAL.GREEN
 	
 	
 	

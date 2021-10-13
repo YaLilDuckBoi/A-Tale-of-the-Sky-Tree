@@ -1,4 +1,4 @@
-[gd_scene load_steps=159 format=2]
+[gd_scene load_steps=171 format=2]
 
 [ext_resource path="res://KinematicBody2D.gd" type="Script" id=1]
 [ext_resource path="res://CharacterWizLeft.png" type="Texture" id=2]
@@ -11,6 +11,12 @@
 [ext_resource path="res://Area2D.gd" type="Script" id=9]
 [ext_resource path="res://WoodenTilesBlob.png" type="Texture" id=10]
 [ext_resource path="res://Enemies.tscn" type="PackedScene" id=11]
+[ext_resource path="res://FilledCrystalSlotGreen.png" type="Texture" id=12]
+[ext_resource path="res://TopLeftUI.tscn" type="PackedScene" id=13]
+[ext_resource path="res://FilledCrystalSlotYellow.png" type="Texture" id=14]
+[ext_resource path="res://FilledCrystalSlotBlue.png" type="Texture" id=15]
+[ext_resource path="res://FilledCrystalSlotRed.png" type="Texture" id=16]
+[ext_resource path="res://icon.png" type="Texture" id=17]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 56, 40 )
@@ -1398,6 +1404,44 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 [sub_resource type="RectangleShape2D" id=147]
 extents = Vector2( 8000, 344 )
 
+[sub_resource type="RectangleShape2D" id=148]
+extents = Vector2( 8, 8 )
+
+[sub_resource type="SpriteFrames" id=149]
+animations = [ {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=150]
+animations = [ {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=151]
+animations = [ {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=152]
+extents = Vector2( 8, 8 )
+
+[sub_resource type="SpriteFrames" id=153]
+animations = [ {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [node name="MainScene" type="Node2D"]
 
 [node name="GreenWizard" type="StaticBody2D" parent="."]
@@ -1498,9 +1542,87 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Pickups" type="Node" parent="World"]
+
+[node name="BlueCrystalPickup" type="Area2D" parent="World/Pickups"]
+position = Vector2( -64, -96 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Pickups/BlueCrystalPickup"]
+shape = SubResource( 148 )
+
+[node name="BlueCrystal" type="AnimatedSprite" parent="World/Pickups/BlueCrystalPickup"]
+position = Vector2( 1.90735e-06, -9.53674e-07 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 149 )
+
+[node name="GreenCrystalPickup" type="Area2D" parent="World/Pickups"]
+position = Vector2( 512, -384 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Pickups/GreenCrystalPickup"]
+shape = SubResource( 148 )
+
+[node name="GreenCrystal" type="AnimatedSprite" parent="World/Pickups/GreenCrystalPickup"]
+position = Vector2( 1.52588e-05, -3.8147e-06 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 150 )
+
+[node name="RedCrystalPickup" type="Area2D" parent="World/Pickups"]
+position = Vector2( 832, -1216 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Pickups/RedCrystalPickup"]
+shape = SubResource( 148 )
+
+[node name="RedCrystal" type="AnimatedSprite" parent="World/Pickups/RedCrystalPickup"]
+position = Vector2( 3.05176e-05, 3.05176e-05 )
+scale = Vector2( 0.500001, 0.500001 )
+frames = SubResource( 151 )
+
+[node name="YellowCrystalPickup" type="Area2D" parent="World/Pickups"]
+position = Vector2( 448, -2176 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Pickups/YellowCrystalPickup"]
+shape = SubResource( 152 )
+
+[node name="YellowCrystal" type="AnimatedSprite" parent="World/Pickups/YellowCrystalPickup"]
+position = Vector2( 1.81198e-05, -5.24521e-05 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 153 )
+
 [node name="Enemies" parent="." instance=ExtResource( 11 )]
 position = Vector2( 640, 192 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TopLeftUI" parent="CanvasLayer" instance=ExtResource( 13 )]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -160.0
+margin_right = -96.0
+margin_bottom = 64.0
+icon = ExtResource( 17 )
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="timeout" from="PlayerWiz/Coytime" to="PlayerWiz" method="_on_Coytime_timeout"]
 [connection signal="body_entered" from="World/Ocean/Area2D" to="PlayerWiz" method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="World/Ocean/Area2D" to="PlayerWiz" method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="World/Pickups/BlueCrystalPickup" to="PlayerWiz" method="_on_BlueCrystalPickup_body_entered"]
+[connection signal="body_entered" from="World/Pickups/GreenCrystalPickup" to="PlayerWiz" method="_on_GreenCrystalPickup_body_entered"]
+[connection signal="body_entered" from="World/Pickups/RedCrystalPickup" to="PlayerWiz" method="_on_RedCrystalPickup_body_entered"]
+[connection signal="body_entered" from="World/Pickups/YellowCrystalPickup" to="PlayerWiz" method="_on_YellowCrystalPickup_body_entered"]
