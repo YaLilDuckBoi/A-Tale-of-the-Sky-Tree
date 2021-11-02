@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://lambola-font/Lambola-GOJVm.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Menu.gd" type="Script" id=2]
 
 [sub_resource type="DynamicFont" id=1]
-size = 30
+size = 32
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
 font_data = ExtResource( 1 )
 
 [node name="Menu" type="Control"]
@@ -11,19 +16,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
 margin_right = 8.0
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer"]
 anchor_right = 0.02
 anchor_bottom = 0.044
 margin_left = 336.0
 margin_top = 64.0
 margin_right = 448.0
 margin_bottom = 108.2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Button"]
+[node name="Label" type="Label" parent="CanvasLayer/ResumeButton"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -32,9 +43,26 @@ margin_left = -64.0
 margin_top = -32.0
 margin_right = 64.0
 margin_bottom = 32.0
-custom_fonts/normal_font = SubResource( 1 )
-tab_size = 6
-text = "[center]Resume[/center]"
+custom_fonts/font = SubResource( 1 )
+text = "Resume"
+align = 1
+valign = 1
+
+[node name="QuitButton" type="Button" parent="CanvasLayer"]
+margin_left = 336.0
+margin_top = 192.0
+margin_right = 464.0
+margin_bottom = 256.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Label" type="Label" parent="CanvasLayer/QuitButton"]
+margin_right = 128.0
+margin_bottom = 64.0
+custom_fonts/font = SubResource( 2 )
+text = "Quit"
+align = 1
+valign = 1
+
+[connection signal="pressed" from="CanvasLayer/QuitButton" to="." method="_on_Button2_pressed"]

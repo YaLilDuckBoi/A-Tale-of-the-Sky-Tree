@@ -46,6 +46,7 @@ func _physics_process(delta):
 
 func _on_DMG_body_entered(body):
 	set_behaviour_to_recovering()
+	globals.PlayerHP = globals.PlayerHP - 1
 	print ("Recovering :>")
 
 func _on_AttackArea_body_entered(body):

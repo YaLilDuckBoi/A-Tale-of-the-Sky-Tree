@@ -10,9 +10,9 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ ExtResource( 6 ) ],
 "loop": true,
-"name": "Yellow",
+"name": "Blue",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ) ],
@@ -20,19 +20,19 @@ animations = [ {
 "name": "Red",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "Green",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ) ],
-"loop": true,
-"name": "Blue",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "Empty",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "Yellow",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "Green",
 "speed": 5.0
 } ]
 
@@ -70,6 +70,28 @@ __meta__ = {
 margin_left = 152.0
 margin_top = 8.0
 margin_right = 176.0
+margin_bottom = 32.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CrystalHeart4" type="TextureRect" parent="."]
+margin_left = 192.0
+margin_top = 8.0
+margin_right = 216.0
+margin_bottom = 32.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CrystalHeart5" type="TextureRect" parent="."]
+margin_left = 232.0
+margin_top = 8.0
+margin_right = 256.0
 margin_bottom = 32.0
 texture = ExtResource( 3 )
 expand = true

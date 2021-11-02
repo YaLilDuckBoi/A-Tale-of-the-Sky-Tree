@@ -3,6 +3,7 @@ extends KinematicBody2D
 const UP = Vector2(0, -1)
 var motion = Vector2()
 
+var SlashReloadTime = 0.4
 var JUMPHEIGHT = -600
 var MOVESPEED = 400
 var GRAVITY = 20
@@ -13,7 +14,21 @@ var AIRJUMPS = MAXAIRJUMPS
 ##var ISFLOORJUMPOK := true
 onready var in_water := false
 
+func _ready():
+	get_node("SlashArea").monitoring = false
+
 func _physics_process(delta):
+	
+	if get_node("SlashReload").is_stopped():
+		if Input.is_key_pressed(KEY_X):
+			print("attack!")
+			get_node("SlashArea/SwordSprite").visible = true
+			get_node("SlashArea/SwordSprite").play("LeftSlice")
+			get_node("SlashArea").monitoring = true
+			get_node("SlashReload").start(SlashReloadTime)
+	else:
+		get_node("SlashArea").monitoring = false
+	#print(get_node("SlashArea/SwordSprite").get_sprite_frames())
 	
 	if is_on_floor():
 		AIRJUMPS = MAXAIRJUMPS
@@ -100,3 +115,10 @@ func _on_RedCrystalPickup_body_entered(body):
 func _on_YellowCrystalPickup_body_entered(body):
 	
 	globals.CurrentBigCrystal = globals.BIGCRYSTAL.YELLOW
+
+
+func _on_SwordSprite_animation_finished():
+	print("attack stopped")
+	get_node("SlashArea/SwordSprite").visible = false
+	get_node("SlashArea/SwordSprite").stop()
+	get_node("SlashArea/SwordSprite").set_frame(0)

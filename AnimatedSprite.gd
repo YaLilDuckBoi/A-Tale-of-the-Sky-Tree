@@ -11,18 +11,15 @@ extends AnimatedSprite
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	if Input.is_action_pressed("ui_left"):
-		frame = 0
-	elif Input.is_action_pressed("ui_right"):
-		frame = 1
+	frame = 1
+	flip_h = false
 	
 	 # Replace with function body.
 func _physics_process(delta):
 	if Input.is_action_pressed("ui_left"):
-		frame = 0
+		flip_h = true
 	elif Input.is_action_pressed("ui_right"):
-		frame = 1
+		flip_h = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
