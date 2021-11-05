@@ -1,4 +1,4 @@
-[gd_scene load_steps=177 format=2]
+[gd_scene load_steps=181 format=2]
 
 [ext_resource path="res://KinematicBody2D.gd" type="Script" id=1]
 [ext_resource path="res://bg_glow.png" type="Texture" id=2]
@@ -19,6 +19,9 @@
 [ext_resource path="res://icon.png" type="Texture" id=17]
 [ext_resource path="res://slicebottom.png" type="Texture" id=18]
 [ext_resource path="res://slicetop.png" type="Texture" id=19]
+[ext_resource path="res://textbox.png" type="Texture" id=20]
+[ext_resource path="res://RichTextLabel.gd" type="Script" id=21]
+[ext_resource path="res://quinque-five-font/Quinquefive-Ea6d4.ttf" type="DynamicFontData" id=22]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 56, 40 )
@@ -26,10 +29,10 @@ extents = Vector2( 56, 40 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 16 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 8.85712, 20.3125 )
 
-[sub_resource type="CanvasItemMaterial" id=3]
+[sub_resource type="CanvasItemMaterial" id=4]
 blend_mode = 1
 
 [sub_resource type="SpriteFrames" id=5]
@@ -1459,6 +1462,9 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="DynamicFont" id=158]
+font_data = ExtResource( 22 )
+
 [sub_resource type="Environment" id=157]
 background_mode = 4
 glow_intensity = 1.2
@@ -1496,7 +1502,7 @@ script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerWiz"]
 position = Vector2( -0.891907, 11.7163 )
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="PlayerWiz"]
 offset = Vector2( 0, -20 )
@@ -1514,7 +1520,7 @@ one_shot = true
 
 [node name="BackGlow" type="Sprite" parent="PlayerWiz"]
 self_modulate = Color( 0.392157, 0.392157, 0.392157, 0.196078 )
-material = SubResource( 3 )
+material = SubResource( 4 )
 position = Vector2( 9.53674e-06, 8 )
 scale = Vector2( 0.102041, 0.213333 )
 texture = ExtResource( 2 )
@@ -1528,7 +1534,7 @@ script = ExtResource( 7 )
 
 [node name="FrontGlow" type="Sprite" parent="PlayerWiz"]
 self_modulate = Color( 0.392157, 0.392157, 0.392157, 0.196078 )
-material = SubResource( 3 )
+material = SubResource( 4 )
 position = Vector2( 1.00136e-05, 8 )
 scale = Vector2( 0.102041, 0.213333 )
 texture = ExtResource( 2 )
@@ -1674,6 +1680,37 @@ __meta__ = {
 visible = false
 color = Color( 0.501961, 0.501961, 0.501961, 1 )
 
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -160.0
+margin_top = -122.0
+margin_right = 160.0
+margin_bottom = -26.0
+texture = ExtResource( 20 )
+patch_margin_left = 27
+patch_margin_top = 27
+patch_margin_right = 24
+patch_margin_bottom = 29
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/NinePatchRect"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 304.0
+margin_bottom = 80.0
+custom_fonts/normal_font = SubResource( 158 )
+text = "
+"
+script = ExtResource( 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
 color = Color( 0.503906, 0.503906, 0.503906, 1 )
@@ -1682,9 +1719,10 @@ color = Color( 0.503906, 0.503906, 0.503906, 1 )
 layer = -3
 
 [node name="ColorRect" type="ColorRect" parent="BackgroundLayer"]
-margin_top = -128.0
-margin_right = 896.0
-margin_bottom = 464.0
+margin_left = -40.0
+margin_top = -136.0
+margin_right = 856.0
+margin_bottom = 456.0
 color = Color( 0.431373, 0.643137, 0.65098, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1693,6 +1731,8 @@ __meta__ = {
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 157 )
 
+[connection signal="body_entered" from="GreenWizard/UpgradeArea" to="CanvasLayer/NinePatchRect/RichTextLabel" method="_on_UpgradeArea_body_entered"]
+[connection signal="body_exited" from="GreenWizard/UpgradeArea" to="CanvasLayer/NinePatchRect/RichTextLabel" method="_on_UpgradeArea_body_exited"]
 [connection signal="timeout" from="PlayerWiz/Coytime" to="PlayerWiz" method="_on_Coytime_timeout"]
 [connection signal="animation_finished" from="PlayerWiz/SlashArea/SwordSprite" to="PlayerWiz" method="_on_SwordSprite_animation_finished"]
 [connection signal="body_entered" from="World/Ocean/Area2D" to="PlayerWiz" method="_on_Area2D_body_entered"]
